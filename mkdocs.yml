@@ -1,0 +1,5 @@
+site_name: DotNetFunciontal Tutorial
+theme:
+  name: "material"
+  features:
+    - content.code.copy
