@@ -419,26 +419,26 @@
 
 <h1 id="integrando-o-f">Integrando o F#</h1>
 <p>Abra o arquivo <code>Library.fs</code> no projeto <code>LoadRules</code>. Ele terá um código de exemplo a seguir:</p>
-<pre><code class="language-f#">namespace LoanRules
+<div class="highlight"><pre><span></span><code><span class="k">namespace</span><span class="w"> </span><span class="n">LoanRules</span>
 
-module Say =
-    let hello name =
-        printfn &quot;Hello %s&quot; name
-</code></pre>
+<span class="k">module</span><span class="w"> </span><span class="nn">Say</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">hello</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span>
+<span class="w">        </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;Hello %s&quot;</span><span class="w"> </span><span class="n">name</span>
+</code></pre></div>
 <p><code>namespace</code> é autoexplicativo e indica como é a hierarquia da bibllioteca.</p>
 <p>Dentro do <code>namespace</code> há um módulo chamado <code>Say</code> e uma função chamada <code>hello</code> com um argumento.</p>
 <p>Essa função não é pura devido ao print embutido dentro dela.</p>
 <h2 id="primeiro-passo">Primeiro Passo</h2>
 <p>Sem modificar a biblioteca ainda, vamos tentar realizar a chamada dessa função no C# e fazer com que ela imprima o resultado no terminal.</p>
 <p>Ao abrir o arquivo <code>Program.cs</code>, você notará que possui apenas um print:</p>
-<pre><code class="language-c#">Console.WriteLine(&quot;Hello, World!&quot;);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="s">&quot;Hello, World!&quot;</span><span class="p">);</span>
+</code></pre></div>
 <p>Apague essa linha e faça a chamada de função da biblioteca:</p>
-<pre><code class="language-c#">using LoanRules; // reference F# DLL
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">LoanRules</span><span class="p">;</span><span class="w"> </span><span class="c1">// reference F# DLL</span>
 
-// Call function hello in module Say in LoanRules
-Say.hello(&quot;John Doe&quot;);
-</code></pre>
+<span class="c1">// Call function hello in module Say in LoanRules</span>
+<span class="n">Say</span><span class="p">.</span><span class="n">hello</span><span class="p">(</span><span class="s">&quot;John Doe&quot;</span><span class="p">);</span>
+</code></pre></div>
 <p>Apesar da função estar em F#, a sintaxe a ser utilizada deve ser a do C#, que é análoga ao do Java.</p>
 <p>A integração dentro do ambiente .net é automática e transparente. Ao rodar a aplicação, a solução monta ambos os projetos e preparam o código em .net IL para executar na Virtual Machine. Para o C#, a biblioteca não é em F#, mas em uma representação intermediária que é acessível por todo o ecoessistema .net. </p>
 <p>Essa interoperabilidade é muito produtiva para aplicações complexas, com diversos times trabalhando na solução, isolando as atribuições de cada grupo e sem problemas ou camadas de integração.</p>

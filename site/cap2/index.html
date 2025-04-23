@@ -353,12 +353,12 @@
 - Income: float
 - CreditScore: int</p>
 <p>Você pode criar o Record de forma análoga a feita em OCaml, mas lembrando que precisa ser em PascalCase:</p>
-<pre><code class="language-F#">type Customer = {
-    Age: int
-    Income: float
-    CreditScore: int
-}
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="nc">Customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span><span class="n">Age</span><span class="o">:</span><span class="w"> </span><span class="n">int</span>
+<span class="w">    </span><span class="n">Income</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span>
+<span class="w">    </span><span class="n">CreditScore</span><span class="o">:</span><span class="w"> </span><span class="n">int</span>
+<span class="o">}</span>
+</code></pre></div>
 <p><strong>Ex 1:</strong> Crie agora um novo <code>Record</code> chamado <code>Loan</code> com 3 campos: <code>Amount</code>, <code>InterestRate</code> e <code>TermMonths</code>. Os dois primeiros são <code>float</code> e o último é inteiro.</p>
 <p><strong>Ex 2:</strong> Crie um <code>Record</code> chamado <code>LoanRequest</code> com 2 campos: <code>Customer</code> e <code>Loan</code>.</p>
 <p>A nova estrutura irá conter os dados referentes a um empréstimo em específico.</p>
@@ -374,11 +374,13 @@
 <h1 id="integracao">Integração</h1>
 <p>Na integração entre as plataformas, o <code>Record</code> se tornará algo parecido com uma classe com um construtor automático contendo todos os campos.</p>
 <p>Logo, é possível construir objetos em C# usando o Record declarado em F#:</p>
-<pre><code class="language-c#">var customer = new Customer(30, 60000, 700);
-</code></pre>
+<div class="highlight"><pre><span></span><code><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Customer</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">60000</span><span class="p">,</span><span class="w"> </span><span class="mi">700</span><span class="p">);</span>
+</code></pre></div>
 <p>O único detalhe principal é que a ordem declarada precisa ser mantida no construtor, ao contrário do OCaml que permitia qualquer ordem.</p>
-<p>!!! exercise "Exercise 4: Hello Function"
-    Reescreva o programa em C# para realizar a chamada da nova função.</p>
+<div class="admonition exercise">
+<p class="admonition-title">Exercise 4: Hello Function</p>
+<p>Reescreva o programa em C# para realizar a chamada da nova função.</p>
+</div>
 
 
 

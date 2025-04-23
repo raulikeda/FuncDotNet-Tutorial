@@ -422,28 +422,28 @@
 <p>O primeiro passo é preparar todo o ambiente para começar a escrever a aplicação.</p>
 <h2 id="preparacao">Preparação</h2>
 <p>Instalar o .net SDK (preferencialmente no WSL):</p>
-<pre><code class="language-shell">sudo add-apt-repository ppa:dotnet/backports
-sudo apt-get update &amp;&amp; \
-  sudo apt-get install -y dotnet-sdk-9.0
-</code></pre>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:dotnet/backports
+sudo<span class="w"> </span>apt-get<span class="w"> </span>update<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>dotnet-sdk-9.0
+</code></pre></div>
 <ul>
 <li>Criar um repositório no GitHub e rodar:</li>
 </ul>
-<pre><code class="language-shell">dotnet new sln -n LoanService
-dotnet new classlib -lang F# -o LoanRules
-dotnet new console -lang C# -o LoanApp
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>sln<span class="w"> </span>-n<span class="w"> </span>LoanService
+dotnet<span class="w"> </span>new<span class="w"> </span>classlib<span class="w"> </span>-lang<span class="w"> </span>F#<span class="w"> </span>-o<span class="w"> </span>LoanRules
+dotnet<span class="w"> </span>new<span class="w"> </span>console<span class="w"> </span>-lang<span class="w"> </span>C#<span class="w"> </span>-o<span class="w"> </span>LoanApp
 
-dotnet sln add LoanRules/LoanRules.fsproj
-dotnet sln add LoanApp/LoanApp.csproj
-dotnet add LoanApp/LoanApp.csproj reference LoanRules/LoanRules.fsproj
-</code></pre>
+dotnet<span class="w"> </span>sln<span class="w"> </span>add<span class="w"> </span>LoanRules/LoanRules.fsproj
+dotnet<span class="w"> </span>sln<span class="w"> </span>add<span class="w"> </span>LoanApp/LoanApp.csproj
+dotnet<span class="w"> </span>add<span class="w"> </span>LoanApp/LoanApp.csproj<span class="w"> </span>reference<span class="w"> </span>LoanRules/LoanRules.fsproj
+</code></pre></div>
 <p>Isso irá criar uma <code>Solution</code> na raiz do repositório com dois projetos:
 - LoanApp: um <code>Console Application</code> em C#
 - LoanRules: uma <code>Lib</code> em F#</p>
 <p>Em ambos os casos, os projetos são previamente preenchidos com código de exemplo.</p>
 <h2 id="testando-a-solucao">Testando a solução</h2>
-<pre><code class="language-shell">dotnet run --project LoanApp
-</code></pre>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>LoanApp
+</code></pre></div>
 <p>Deve aparecer algo:</p>
 <p><img alt="shell output" src="index-shell.png" /></p>
 <p>Esse é o programa padrão quando criado um programa do tipo <code>Console Application</code>.</p>

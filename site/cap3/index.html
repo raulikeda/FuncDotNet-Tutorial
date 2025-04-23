@@ -422,72 +422,71 @@
 <p>Devido ao ambiente .net, é possível fazer tudo em F#, contudo é muito mais prático fazê-lo em C#. Esse isolamento soma o melhor de cada linguagem.</p>
 <h2 id="criar-um-projeto-loanapi">Criar um projeto LoanAPI</h2>
 <p>O primeiro passo é criar um novo projeto chamado LoanAPI. Em C# não podemos simplesmente substituir o códido em LoanApp para rodar a aplicação no terminal, como em Python. É preciso preparar o projeto para expor os endpoints via webserver.</p>
-<pre><code class="language-shell">dotnet new webapi -n LoanApi
-dotnet add LoanApi/LoanApi.csproj reference LoanRules/LoanRules.fsproj
-</code></pre>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>webapi<span class="w"> </span>-n<span class="w"> </span>LoanApi
+dotnet<span class="w"> </span>add<span class="w"> </span>LoanApi/LoanApi.csproj<span class="w"> </span>reference<span class="w"> </span>LoanRules/LoanRules.fsproj
+</code></pre></div>
 <p>Para testar, você pode rodar:</p>
-<pre><code class="language-shell">dotnet run --project LoanApi
-</code></pre>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>LoanApi
+</code></pre></div>
 <p>Isso irá rodar o webserver e expor os endpoints em: <a href="http://localhost:5156/weatherforecast">localhost</a></p>
 <h2 id="montando-a-api-rest">Montando a API REST</h2>
 <p>Alterar o arquivo <code>LoanApi.http</code> para o endpoint correto: /loan/</p>
 <p>Alterar o arquivo <code>Program.cs</code> do Projeto LoanApi:</p>
-<pre><code class="language-c#">using LoanRules; // reference F# DLL
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">LoanRules</span><span class="p">;</span><span class="w"> </span><span class="c1">// reference F# DLL</span>
 
-var builder = WebApplication.CreateBuilder(args);
+<span class="kt">var</span><span class="w"> </span><span class="n">builder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WebApplication</span><span class="p">.</span><span class="n">CreateBuilder</span><span class="p">(</span><span class="n">args</span><span class="p">);</span>
 
-// Add services to the container.
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+<span class="c1">// Add services to the container.</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddEndpointsApiExplorer</span><span class="p">();</span>
+<span class="n">builder</span><span class="p">.</span><span class="n">Services</span><span class="p">.</span><span class="n">AddSwaggerGen</span><span class="p">();</span>
 
-var app = builder.Build();
+<span class="kt">var</span><span class="w"> </span><span class="n">app</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="n">Build</span><span class="p">();</span>
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+<span class="c1">// Configure the HTTP request pipeline.</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">app</span><span class="p">.</span><span class="n">Environment</span><span class="p">.</span><span class="n">IsDevelopment</span><span class="p">())</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">UseSwagger</span><span class="p">();</span>
+<span class="w">    </span><span class="n">app</span><span class="p">.</span><span class="n">UseSwaggerUI</span><span class="p">();</span>
+<span class="p">}</span>
 
-app.UseHttpsRedirection();
+<span class="n">app</span><span class="p">.</span><span class="n">UseHttpsRedirection</span><span class="p">();</span>
 
-app.MapPost(&quot;/loan&quot;, (LoanRequest request) =&gt;
-{
+<span class="n">app</span><span class="p">.</span><span class="n">MapPost</span><span class="p">(</span><span class="s">&quot;/loan&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">LoanRequest</span><span class="w"> </span><span class="n">request</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="p">{</span>
 
-    //Implement:
+<span class="w">    </span><span class="c1">//Implement:</span>
 
-    // Create a Customer record from request
-    // Create a Loan record from request
-    // Call the F# function to check eligibility
-    // Note: The F# function is static and can be called directly
+<span class="w">    </span><span class="c1">// Create a Customer record from request</span>
+<span class="w">    </span><span class="c1">// Create a Loan record from request</span>
+<span class="w">    </span><span class="c1">// Call the F# function to check eligibility</span>
+<span class="w">    </span><span class="c1">// Note: The F# function is static and can be called directly</span>
 
-    bool eligible = true; // Call the F# function here
+<span class="w">    </span><span class="kt">bool</span><span class="w"> </span><span class="n">eligible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// Call the F# function here</span>
 
-    return Results.Ok(new
-    {
-        LoanEligibility = eligible ? &quot;Approved&quot; : &quot;Denied&quot;
-    });
-})
-.WithName(&quot;PostLoan&quot;)
-.WithOpenApi();
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">Results</span><span class="p">.</span><span class="n">Ok</span><span class="p">(</span><span class="k">new</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">LoanEligibility</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eligible</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;Approved&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Denied&quot;</span>
+<span class="w">    </span><span class="p">});</span>
+<span class="p">})</span>
+<span class="p">.</span><span class="n">WithName</span><span class="p">(</span><span class="s">&quot;PostLoan&quot;</span><span class="p">)</span>
+<span class="p">.</span><span class="n">WithOpenApi</span><span class="p">();</span>
 
-app.Run();
-
-</code></pre>
+<span class="n">app</span><span class="p">.</span><span class="n">Run</span><span class="p">();</span>
+</code></pre></div>
 <p>Testar usando usando uma chamada com o verbo post:</p>
-<pre><code class="language-shell">curl -X POST http://localhost:5189/loan   -H &quot;Content-Type: application/json&quot;   -d '{
-    &quot;customer&quot;: {
-      &quot;age&quot;: 30,
-      &quot;income&quot;: 60000.0,
-      &quot;creditScore&quot;: 700
-    },
-    &quot;loan&quot;: {
-      &quot;amount&quot;: 20000.0,
-      &quot;interestRate&quot;: 5.5,
-      &quot;termMonths&quot;: 60
-    }
-  }' -k
-</code></pre>
+<div class="highlight"><pre><span></span><code>curl<span class="w"> </span>-X<span class="w"> </span>POST<span class="w"> </span>http://localhost:5189/loan<span class="w">   </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w">   </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;customer&quot;: {</span>
+<span class="s1">      &quot;age&quot;: 30,</span>
+<span class="s1">      &quot;income&quot;: 60000.0,</span>
+<span class="s1">      &quot;creditScore&quot;: 700</span>
+<span class="s1">    },</span>
+<span class="s1">    &quot;loan&quot;: {</span>
+<span class="s1">      &quot;amount&quot;: 20000.0,</span>
+<span class="s1">      &quot;interestRate&quot;: 5.5,</span>
+<span class="s1">      &quot;termMonths&quot;: 60</span>
+<span class="s1">    }</span>
+<span class="s1">  }&#39;</span><span class="w"> </span>-k
+</code></pre></div>
 
 
 
