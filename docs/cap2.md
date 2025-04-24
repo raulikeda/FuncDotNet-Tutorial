@@ -8,7 +8,7 @@ A sintaxe de F# é muito parecido com OCaml, com algumas pequenas diferenças. P
 
 O projeto `LoadRules` cria automaticamente o arquivo Library.fs. Vamos utilizar esse mesmo arquivo para escrever o código, mantendo uma estrutura básica
 
-# Records
+## Records
 
 Vamos começar com o record que representa o cliente. Essa estrutura irá armazenar dados como idade, proventos e score de crédito:
 
@@ -27,13 +27,15 @@ type Customer = {
 }
 ```
 
-**Ex 1:** Crie agora um novo `Record` chamado `Loan` com 3 campos: `Amount`, `InterestRate` e `TermMonths`. Os dois primeiros são `float` e o último é inteiro.
+!!! exercise "Exercício 1:"
+    Crie agora um novo `Record` chamado `Loan` com 3 campos: `Amount`, `InterestRate` e `TermMonths`. Os dois primeiros são `float` e o último é inteiro.
 
-**Ex 2:** Crie um `Record` chamado `LoanRequest` com 2 campos: `Customer` e `Loan`.
+!!! exercise "Exercício 2:"
+    Crie um `Record` chamado `LoanRequest` com 2 campos: `Customer` e `Loan`.
 
 A nova estrutura irá conter os dados referentes a um empréstimo em específico.
 
-# Functions
+## Functions
 
 Por último vamos substituir o módulo atual por um novo módulo chamado `Elegibility`. Dentro colocaremos uma única função por enquanto chamada `isEligible`. Essa função irá receber um record referente ao usuário e um record referente ao empréstimo e retorna um `boolean`.
 
@@ -43,9 +45,10 @@ A regra de negócio é para aprovação do empréstimo (retorno true):
 - Se a renda é maior ou igual ao dobro do valor do empréstimo
 - Se o score de crédito é superior a 649
 
-**Ex 3:** Codificar a função acima no módulo
+!!! exercise "Exercício 3:"
+    Codificar a função acima no módulo
 
-# Integração
+## Integração
 
 Na integração entre as plataformas, o `Record` se tornará algo parecido com uma classe com um construtor automático contendo todos os campos.
 
@@ -57,7 +60,7 @@ var customer = new Customer(30, 60000, 700);
 
 O único detalhe principal é que a ordem declarada precisa ser mantida no construtor, ao contrário do OCaml que permitia qualquer ordem.
 
-!!! exercise "Exercise 4: Hello Function"
+!!! exercise "Exercício 4:"
     Reescreva o programa em C# para realizar a chamada da nova função.
 
 

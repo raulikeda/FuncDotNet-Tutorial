@@ -45,5 +45,8 @@ Essa interoperabilidade é muito produtiva para aplicações complexas, com dive
 
 Vamos agora tornar a função pura e jogar o efeito colateral para o C#.
 
-**Ex 1:** Modifique a função hello para receber uma string e retornar uma string, concatenando o prefixo "Hello, " no argumento.
-**Ex 2:** Modifique o arquivo Program.cs para chamar a função na biblioteca e imprimir o resultado.
+!!! exercise "Exercício 1:"
+    Modifique a função hello para receber uma string e retornar uma string, concatenando o prefixo "Hello, " no argumento.
+    
+!!! exercise "Exercício 2:"
+    Modifique o arquivo Program.cs para chamar a função na biblioteca e imprimir o resultado.

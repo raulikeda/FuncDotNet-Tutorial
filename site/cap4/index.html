@@ -289,6 +289,19 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Para ir além
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -300,6 +313,34 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-cereja-do-bolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Cereja do Bolo
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -325,6 +366,23 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-cereja-do-bolo" class="md-nav__link">
+    <span class="md-ellipsis">
+      A Cereja do Bolo
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -348,16 +406,97 @@
 <li>Função que calcula o valor de um leasing baseado em entrada e parcela final</li>
 </ol>
 <p>Ou qualquer outra <em>feature</em> dos modelos de empréstimo.</p>
-<h1 id="cereja-do-bolo">Cereja do Bolo</h1>
-<p>Para quem gosta de coisas <em>vintage</em>:</p>
+<h2 id="a-cereja-do-bolo">A Cereja do Bolo</h2>
+<p>Para quem gosta de tecnologias <em>vintage</em>:</p>
 <p>Linux:</p>
 <div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>install<span class="w"> </span>Avalonia.Templates
 dotnet<span class="w"> </span>new<span class="w"> </span>avalonia.app<span class="w"> </span>-n<span class="w"> </span>LoanApp.Avalonia
 dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>LoanApp.Avalonia
 </code></pre></div>
-<p>Windows:</p>
-<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>new<span class="w"> </span>wpf<span class="w"> </span>-n<span class="w"> </span>LoanApp.Wpf
-dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>LoanApp.Wpf
+<p>Esse é um projeto derivado das aplicações <code>Windows Forms</code>. O .net já havia um novo modelo mais moderno chamado XAML para a construção de telas client-size, e Avalonia é uma portabilidade para outras plataformas, como Linux.</p>
+<p>Vamos alterar alguns arquivos no projeto para utilizar a biblioteca do F#. Primeiro adicionar a referência à biblioteca:</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>add<span class="w"> </span>LoanApp.Avalonia/LoanApp.Avalonia.csproj<span class="w"> </span>reference<span class="w"> </span>LoanRules/LoanRules.fsproj
+</code></pre></div>
+<p>Agora, alterar os arquivos:</p>
+<ul>
+<li>Arquivo: <code>MainWindow.axaml.cs</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="nn">Avalonia.Controls</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">Avalonia.Interactivity</span><span class="p">;</span>
+<span class="k">using</span><span class="w"> </span><span class="nn">LoanRules</span><span class="p">;</span><span class="w"> </span><span class="c1">// reference F# DLL</span>
+
+<span class="k">namespace</span><span class="w"> </span><span class="nn">LoanApp.Avalonia</span><span class="p">;</span>
+
+<span class="k">public</span><span class="w"> </span><span class="k">partial</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">MainWindow</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">Window</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="nf">MainWindow</span><span class="p">()</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">InitializeComponent</span><span class="p">();</span>
+<span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="n">WindowStartupLocation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">WindowStartupLocation</span><span class="p">.</span><span class="n">CenterScreen</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">private</span><span class="w"> </span><span class="k">void</span><span class="w"> </span><span class="nf">SubmitButton_Click</span><span class="p">(</span><span class="kt">object?</span><span class="w"> </span><span class="n">sender</span><span class="p">,</span><span class="w"> </span><span class="n">RoutedEventArgs</span><span class="w"> </span><span class="n">e</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;AgeTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">income</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;IncomeTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;ScoreTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="p">;</span>
+
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">amount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;AmountTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;RateTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="p">;</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">term</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;TermTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="p">;</span>
+
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">customer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Customer</span><span class="p">(</span>
+<span class="w">                </span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">age</span><span class="p">),</span><span class="w"> </span>
+<span class="w">                </span><span class="kt">double</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">income</span><span class="p">),</span><span class="w"> </span>
+<span class="w">                </span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">score</span><span class="p">));</span>
+
+<span class="w">            </span><span class="c1">// Create a Loan record</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">loan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Loan</span><span class="p">(</span>
+<span class="w">                </span><span class="kt">double</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">amount</span><span class="p">),</span><span class="w"> </span>
+<span class="w">                </span><span class="kt">double</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">rate</span><span class="p">),</span><span class="w"> </span>
+<span class="w">                </span><span class="kt">int</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">term</span><span class="p">));</span>
+
+<span class="w">            </span><span class="c1">// Call the F# function to check eligibility</span>
+<span class="w">            </span><span class="c1">// Note: The F# function is static and can be called directly</span>
+<span class="w">            </span><span class="kt">bool</span><span class="w"> </span><span class="n">eligible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Eligibility</span><span class="p">.</span><span class="n">isEligible</span><span class="p">(</span><span class="n">customer</span><span class="p">,</span><span class="w"> </span><span class="n">loan</span><span class="p">);</span>
+<span class="w">            </span><span class="kt">var</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eligible</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">&quot;Approved&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Denied&quot;</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">this</span><span class="p">.</span><span class="n">FindControl</span><span class="o">&lt;</span><span class="n">TextBox</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;ResultTextBox&quot;</span><span class="p">).</span><span class="n">Text</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+
+<span class="w">        </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>Arquivo: <code>MainWindow.axaml</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Window</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;https://github.com/avaloniaui&quot;</span>
+<span class="w">        </span><span class="na">xmlns:x=</span><span class="s">&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;</span>
+<span class="w">        </span><span class="na">xmlns:d=</span><span class="s">&quot;http://schemas.microsoft.com/expression/blend/2008&quot;</span>
+<span class="w">        </span><span class="na">xmlns:mc=</span><span class="s">&quot;http://schemas.openxmlformats.org/markup-compatibility/2006&quot;</span>
+<span class="w">        </span><span class="na">mc:Ignorable=</span><span class="s">&quot;d&quot;</span><span class="w"> </span><span class="na">d:DesignWidth=</span><span class="s">&quot;800&quot;</span><span class="w"> </span><span class="na">d:DesignHeight=</span><span class="s">&quot;500&quot;</span>
+<span class="w">        </span><span class="na">x:Class=</span><span class="s">&quot;LoanApp.Avalonia.MainWindow&quot;</span>
+<span class="w">        </span><span class="na">MinWidth=</span><span class="s">&quot;300&quot;</span><span class="w"> </span><span class="na">MinHeight=</span><span class="s">&quot;490&quot;</span>
+<span class="w">        </span><span class="na">Title=</span><span class="s">&quot;LoanApp.Avalonia&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;StackPanel</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;10&quot;</span><span class="nt">&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Age:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;AgeTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Income:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;IncomeTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Credit Score:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;ScoreTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Amount:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;AmountTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Rate:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;RateTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Term:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;TermTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Button</span><span class="w"> </span><span class="na">Content=</span><span class="s">&quot;Submit&quot;</span><span class="w"> </span><span class="na">Click=</span><span class="s">&quot;SubmitButton_Click&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBlock</span><span class="w"> </span><span class="na">Text=</span><span class="s">&quot;Result:&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;TextBox</span><span class="w"> </span><span class="na">Name=</span><span class="s">&quot;ResultTextBox&quot;</span><span class="w"> </span><span class="na">Margin=</span><span class="s">&quot;0,5,0,10&quot;</span><span class="w"> </span><span class="na">IsEnabled=</span><span class="s">&quot;false&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/StackPanel&gt;</span>
+<span class="nt">&lt;/Window&gt;</span>
+</code></pre></div>
+<p>Agora só falta rodar:</p>
+<div class="highlight"><pre><span></span><code>dotnet<span class="w"> </span>run<span class="w"> </span>--project<span class="w"> </span>LoanApp.Avalonia
 </code></pre></div>
 <p>Para quem quiser saber mais: <a href="https://learn.microsoft.com/pt-br/shows/vs-code-livestreams/vs-code-for-xaml-and-csharp-devs">XAML</a></p>
 <p>Enjoy!</p>
