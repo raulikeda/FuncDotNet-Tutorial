@@ -10,6 +10,7 @@ O primeiro passo é criar um novo projeto chamado LoanAPI. Em C# não podemos si
 
 ```shell
 dotnet new webapi -n LoanApi
+dotnet sln add LoanApi/LoanApi.csproj
 dotnet add LoanApi/LoanApi.csproj reference LoanRules/LoanRules.fsproj
 ```
 
